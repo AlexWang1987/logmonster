@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2017-03-17 11:13:14
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2017-10-12 10:36:13
+//  Last Modified time: 2017-11-03 10:33:53
 //  Description: wbp-init-umd-main
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -26,6 +26,7 @@ let defaultOptions = {
   }),
   endPoint: 'http://localhost:8080/log.html',
   postMethod: 'POST',
+  postEncode: 'application/json',
   postTimeout: 15 * 1000,
   discardMax: 100 * 1000,
   entriesMax: 10,
@@ -118,20 +119,26 @@ async function distributeEntires() {
   }
 
   if (batchPackages.length) {
-    const endPoint = defaultOptions.endPoint;
-    const postMethod = defaultOptions.postMethod;
-    const postTimeout = defaultOptions.postTimeout;
+    const {
+      endPoint,
+      postMethod,
+      postTimeout,
+      postEncode
+    } = defaultOptions;
+
     return Promise.map(batchPackages, (batchPackage) => Promise.try(() => {
       const batchValues = batchPackage.map((entry) => entry.value);
       let batchCached = false;
+      const postData = JSON.stringify(batchValues);
+
       return new Promise((rsv) => {
           try {
             fetch(endPoint, {
                 method: postMethod,
                 headers: {
-                  'Content-type': 'application/json'
+                  'Content-type': postEncode
                 },
-                body: JSON.stringify(batchValues)
+                body: postEncode.indexOf('json') !== -1 ? postData : `data=${postData}`
               })
               .then((postRes) => {
                 if (!batchCached) {
