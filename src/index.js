@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2017-03-17 11:13:14
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2017-11-03 14:48:05
+//  Last Modified time: 2017-11-03 15:08:18
 //  Description: wbp-init-umd-main
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -138,7 +138,7 @@ async function distributeEntires() {
                 headers: {
                   'Content-type': postEncode
                 },
-                body: postEncode.indexOf('json') !== -1 ? postData : encodeURIComponent(`data=${postData}`)
+                body: postEncode.indexOf('json') !== -1 ? postData : encodeURI(`data=${postData}`)
               })
               .then((postRes) => {
                 if (!batchCached) {
