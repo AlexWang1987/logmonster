@@ -8,7 +8,7 @@
 //  Author: AlexWang
 //  Date: 2017-03-17 11:13:14
 //  QQ Email: 1669499355@qq.com
-//  Last Modified time: 2017-11-03 17:08:49
+//  Last Modified time: 2017-11-27 18:38:01
 //  Description: wbp-init-umd-main
 //
 // //////////////////////////////////////////////////////////////////////////////
@@ -24,6 +24,7 @@ let defaultOptions = {
     driver: [localforage.INDEXEDDB],
     storeName: 'dataStore'
   }),
+  storeName: 'dataStore',
   endPoint: 'http://localhost:8080/log.html',
   postMethod: 'POST',
   postEncode: 'application/json',
@@ -36,6 +37,13 @@ let defaultOptions = {
 
 function config(options) {
   defaultOptions = Object.assign(defaultOptions, options);
+  if (options.storeName) {
+    defaultOptions._localForge = localforage.createInstance({
+      name: 'LogMonster',
+      driver: [localforage.INDEXEDDB],
+      storeName: options.storeName
+    })
+  }
 }
 
 async function push(item) {

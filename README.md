@@ -5,6 +5,8 @@ Post your app logs(JSON format) to server with a nice limited buffer.
 ## options (default)
 
 ```javascript
+  // database name
+  storeName: 'dataStore',
   // server log endpoint
   endPoint: 'http://localhost:8080/log.html',
   postMethod: 'POST',
