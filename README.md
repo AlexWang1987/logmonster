@@ -22,25 +22,25 @@ Post your app logs(JSON format) to server with a nice limited buffer.
 ```
 
 
-## api
-
-- config(options)
-- push(object/string/number)
-
-## demo
+## usage
 
 ```javascript
-import push,{config} from 'logmonster';
+import LogMonster from 'logmonster';
 
 // specify your own log endpoint.
-config({
+const logMonster = new LogMonster({
+  storeName: 'dataStore',
   endPoint: 'http://192.168.2.10/es/log' // you need to set this most likely.
 })
 
 // and enjoy pushing your JSON log object anywhere.
-push({
+logMonster.push({
   mod: 'login',
   contenxt: 'xxxx',
   url: 'xxxx'
 })
+
+// logMonster.stop();
+
+// logMonster.start();
 ```
